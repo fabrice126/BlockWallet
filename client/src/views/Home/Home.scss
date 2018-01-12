@@ -1,0 +1,40 @@
+#Home {
+    width: 100%;
+}
+
+.wallets {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    flex-flow: wrap;
+}
+
+.stickyBarInfos {
+    display: flex;
+    background: white;
+    width: 100%;
+    justify-content: space-around;
+    position: fixed;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
+    align-items: center;
+    height: 30px;
+}
+
+#Home #bt_addProduct {
+    transition: box-shadow 0.3s ease-in-out;
+    border-radius: 100%;
+    position: fixed;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+    background: crimson;
+    color: #fff;
+    bottom: 50px;
+    right: 2%;
+    width: 60px;
+    height: 60px;
+    &:hover {
+        box-shadow: -3px 7px 6px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+    }
+}
