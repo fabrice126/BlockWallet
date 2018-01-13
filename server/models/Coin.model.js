@@ -36,7 +36,7 @@ var CoinSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: Number.isInteger,
-            message: '{VALUE} is not an integer value'
+            message: '{VALUE} is not an integer value',
         }
     }
 }, {
