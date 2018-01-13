@@ -5,6 +5,7 @@ import AddIcon from 'material-ui-icons/Add';
 //Local
 import './Home.css';
 import CryptoCard from '../../components/CryptoCard/CryptoCard';
+import MyCoinsWallet from './MyCoins.wallet.json';
 
 
 export default class Home extends Component {
@@ -29,49 +30,7 @@ export default class Home extends Component {
             const { p: btcusdt } = JSON.parse(event.data);
             this.setState({ btcusdt: Number(btcusdt).toFixed(0) });
         };
-        const wallets = [{
-            currency: 'OMG',
-            buyValue: 15,
-            currentValue: null,
-            quantity: 40,
-            exchange: "binance"
-        }, {
-            currency: 'NEO',
-            buyValue: 70,
-            currentValue: null,
-            quantity: 3.65,
-            exchange: "bittrex"
-        }, {
-            currency: 'ADA',
-            buyValue: 0.4,
-            currentValue: null,
-            quantity: 202,
-            exchange: "binance"
-        }, {
-            currency: 'ETC',
-            buyValue: 35,
-            currentValue: null,
-            quantity: 11.3,
-            exchange: "binance"
-        }, {
-            currency: 'PART',
-            buyValue: 10.59,
-            currentValue: 25.70,
-            quantity: 9.5,
-            exchange: "bittrex"
-        }, {
-            currency: 'XVG',
-            buyValue: 0.2,
-            currentValue: null,
-            quantity: 130,
-            exchange: "kucoin"
-        }, {
-            currency: 'ENG',
-            buyValue: 6.85,
-            currentValue: null,
-            quantity: 7.82,
-            exchange: "binance"
-        }];
+        const wallets = MyCoinsWallet;
         this.setState({ wallets });
         for (let i = 0; i < wallets.length; i++) {
             if (this.state.currencyExclude.includes(wallets[i].currency)) continue;
