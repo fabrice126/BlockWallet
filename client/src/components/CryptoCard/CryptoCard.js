@@ -56,7 +56,7 @@ export default class CryptoCard extends Component {
                             <input type="text" defaultValue={currency}
                                 ref={(currencyInput) => { this.currencyInput = currencyInput; }}
                                 className={`${exchangeGeneralStyle} newInput toUpperCase`}
-                                maxlength="5" />
+                                maxLength="5" />
                             <IconButton onClick={() => deleteCrypto(index)} className={exchangeHeadStyle} aria-label="Delete">
                                 <DeleteIcon />
                             </IconButton>
