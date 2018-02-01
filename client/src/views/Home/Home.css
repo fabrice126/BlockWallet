@@ -1,7 +1,7 @@
 #Home {
   width: 100%; }
 
-.wallets {
+#Home .wallets {
   display: flex;
   justify-content: center;
   flex: 1;
@@ -10,7 +10,7 @@
   margin-bottom: 50px;
   flex-flow: wrap; }
 
-.stickyBarInfos {
+#Home .stickyBarInfos {
   display: flex;
   background: white;
   width: 100%;
@@ -18,7 +18,8 @@
   position: fixed;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
   align-items: center;
-  height: 30px; }
+  height: 30px;
+  z-index: 20; }
 
 #Home #bt_addProduct {
   transition: box-shadow 0.3s ease-in-out;

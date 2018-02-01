@@ -2,6 +2,7 @@
   display: grid;
   position: sticky;
   top: 0px;
+  z-index: 19;
   grid-template-columns: repeat(30, 1fr);
   align-items: center;
   padding: 15px;

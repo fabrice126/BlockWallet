@@ -10,19 +10,7 @@ export default class MenuConnect extends Component {
             <div id="MenuConnect" hidden={!isVisible}>
                 <ul>
                     <li onClick={closeMenuConnect}>
-                        <Link className="navLink" to='/profil/edit'>Modifier le profil</Link>
-                    </li>
-                    <li onClick={closeMenuConnect}>
-                        <Link className="navLink" to='/profil/notification'>Paramètres du compte</Link>
-                    </li>
-                    <li onClick={closeMenuConnect}>
-                        <Link className="navLink" to='/guide'>Bien débuter</Link>
-                    </li>
-                    <li onClick={closeMenuConnect}>
-                        <Link className="navLink" to='/for-companies'>Pour les entreprises</Link>
-                    </li>
-                    <li onClick={closeMenuConnect}>
-                        <Link className="navLink" to='/logout'>Déconnexion</Link>
+                        <Link className="navLink" to='/advert'>Advert</Link>
                     </li>
                 </ul>
             </div>

@@ -6,10 +6,19 @@
   justify-content: flex-start;
   transition: box-shadow 0.3s ease-in-out;
   width: 350px;
+  min-height: 310px;
   border-radius: 5px; }
 
 .CryptoCard:hover {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.24), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); }
+
+.CryptoCard img {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px; }
+
+.CryptoCard .toUpperCase {
+  text-transform: uppercase; }
 
 .CryptoCard div {
   padding: 5px 25px 5px 25px;
@@ -26,28 +35,41 @@
   padding: 5px 25px 5px 25px;
   border-radius: inherit;
   border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px; }
+  border-bottom-right-radius: 0px;
+  display: flex;
+  min-height: 50px;
+  justify-content: space-between;
+  align-items: center; }
 
+.CryptoCard .newInput {
+  outline: none;
+  border-radius: 3px;
+  font-size: 17px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2); }
+
+.CryptoCard.binanceGeneralStyle,
 .binanceGeneralStyle {
   background-color: #3d3d3d;
   color: #f3ba2f; }
 
+.CryptoCard.bittrexGeneralStyle,
 .bittrexGeneralStyle {
   background-color: #d6d6d6;
   color: #28303a; }
 
+.CryptoCard.kucoinGeneralStyle,
 .kucoinGeneralStyle {
   background-color: white;
   color: #0e75ee; }
 
-.binanceHeadStyle {
+.CryptoCard .binanceHeadStyle {
   background-color: #f3ba2f;
   color: #3d3d3d; }
 
-.bittrexHeadStyle {
+.CryptoCard .bittrexHeadStyle {
   background-color: #28303a;
   color: #d6d6d6; }
 
-.kucoinHeadStyle {
+.CryptoCard .kucoinHeadStyle {
   background-color: #0e75ee;
   color: white; }

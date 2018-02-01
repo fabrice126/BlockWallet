@@ -14,7 +14,7 @@ var stringSchemaIndex = {
     default: "",
     index: true
 };
-var CoinSchema = new mongoose.Schema({
+var MarketSchema = new mongoose.Schema({
     "Id": {
         ...stringSchemaIndex,
         unique: true,
@@ -38,14 +38,25 @@ var CoinSchema = new mongoose.Schema({
             validator: Number.isInteger,
             message: '{VALUE} is not an integer value',
         }
-    }
+    },
+    "currentPrice": {
+        type: Number,
+        default: null
+    },
+    availableOn: [{
+        type: String,
+        enum: ['binance', 'bittrex', 'kucoin'],
+        default: null
+    }]
+
 }, {
-        collection: 'coin',
-        toObject: {
-            retainKeyOrder: true,
-        },
-        toJSON: {
-            retainKeyOrder: true,
-        }
+        collection: 'market',
+        timestamps: true
+        // toObject: {
+        //     retainKeyOrder: true,
+        // },
+        // toJSON: {
+        //     retainKeyOrder: true,
+        // }
     });
-export default mongoose.model('Coin', CoinSchema);
+export default mongoose.model('Market', MarketSchema);

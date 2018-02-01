@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.wallets {
+#Home .wallets {
     display: flex;
     justify-content: center;
     flex: 1;
@@ -12,7 +12,7 @@
     flex-flow: wrap;
 }
 
-.stickyBarInfos {
+#Home .stickyBarInfos {
     display: flex;
     background: white;
     width: 100%;
@@ -21,6 +21,7 @@
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
     align-items: center;
     height: 30px;
+    z-index: 20;
 }
 
 #Home #bt_addProduct {

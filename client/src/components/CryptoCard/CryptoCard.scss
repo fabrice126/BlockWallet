@@ -1,3 +1,13 @@
+@mixin generalStyle($backgroundColor, $color) {
+    background-color: $backgroundColor;
+    color: $color;
+}
+
+@mixin headStyle($backgroundColor, $color) {
+    background-color: $backgroundColor;
+    color: $color;
+}
+
 .CryptoCard {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
     margin: 2%;
@@ -6,11 +16,22 @@
     justify-content: flex-start;
     transition: box-shadow 0.3s ease-in-out;
     width: 350px;
+    min-height: 310px;
     border-radius: 5px;
 }
 
 .CryptoCard:hover {
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.24), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.CryptoCard img {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+
+.CryptoCard .toUpperCase {
+    text-transform: uppercase
 }
 
 .CryptoCard div {
@@ -19,7 +40,7 @@
     justify-content: space-between;
 }
 
-.CryptoCard div:first-of-type{
+.CryptoCard div:first-of-type {
     margin-top: 10px;
 }
 
@@ -32,34 +53,42 @@
     border-radius: inherit;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    display: flex;
+    min-height: 50px;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.CryptoCard .newInput {
+    outline: none;
+    border-radius: 3px;
+    font-size: 17px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.CryptoCard.binanceGeneralStyle,
 .binanceGeneralStyle {
-    background-color: #3d3d3d;
-    color: #f3ba2f;
+    @include generalStyle(#3d3d3d, #f3ba2f);
 }
 
+.CryptoCard.bittrexGeneralStyle,
 .bittrexGeneralStyle {
-    background-color: #d6d6d6;
-    color: #28303a;
+    @include generalStyle(#d6d6d6, #28303a);
 }
 
+.CryptoCard.kucoinGeneralStyle,
 .kucoinGeneralStyle {
-    background-color: white;
-    color: #0e75ee;
+    @include generalStyle(white, #0e75ee);
 }
 
-.binanceHeadStyle {
-    background-color: #f3ba2f;
-    color: #3d3d3d;
+.CryptoCard .binanceHeadStyle {
+    @include headStyle(#f3ba2f, #3d3d3d);
 }
 
-.bittrexHeadStyle {
-    background-color: #28303a;
-    color: #d6d6d6;
+.CryptoCard .bittrexHeadStyle {
+    @include headStyle(#28303a, #d6d6d6);
 }
 
-.kucoinHeadStyle {
-    background-color: #0e75ee;
-    color: white;
+.CryptoCard .kucoinHeadStyle {
+    @include headStyle(#0e75ee, white);
 }
