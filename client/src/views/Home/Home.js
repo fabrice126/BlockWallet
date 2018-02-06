@@ -6,7 +6,7 @@ import CryptoCard from '../../components/CryptoCard/CryptoCard';
 import MyCoinsWallet from './MyCoins.wallet.json';
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
-
+import ReactTransitionGroup from 'react-addons-css-transition-group';
 export default class Home extends Component {
 
     constructor() {
@@ -71,12 +71,14 @@ export default class Home extends Component {
                     <span>Total: ${this.getTotal()}</span>
                 </div>
                 <div className="wallets">
-                    {
-                        wallets.map((wallet, index) => {
-                            if (!wallet) return false;
-                            return <CryptoCard btcusdt={btcusdt} save={this.save} deleteCrypto={this.deleteCrypto} changeSelectExchange={this.changeSelectExchange} wallet={wallet} key={index} index={index} />
-                        })
-                    }
+                    <ReactTransitionGroup id="walletsTransitionGroup" transitionName="fade" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
+                        {
+                            wallets.map((wallet, index) => {
+                                if (!wallet) return false;
+                                return <CryptoCard btcusdt={btcusdt} save={this.save} deleteCrypto={this.deleteCrypto} changeSelectExchange={this.changeSelectExchange} wallet={wallet} key={index} index={index} />
+                            })
+                        }
+                    </ReactTransitionGroup>
                 </div>
             </div>
         )
