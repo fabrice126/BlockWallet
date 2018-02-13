@@ -144,22 +144,20 @@ export default class Home extends Component {
     }
 
     createNewSocket = (wallet, i) => {
-        setTimeout(() => {
-            wallet.websocket = new WebSocket(`wss://stream.binance.com:9443/ws/${wallet.currency.toLowerCase()}btc@aggTrade`)
-            wallet.websocket.homeContext = this;
-            wallet.websocket.onopen = (e) => console.log(`Connexion à la paire BTC/${wallet.currency} reussi`);
-            wallet.websocket.onerror = (e) => console.error(`Impossible de trouver la paire à la paire BTC/${wallet.currency}`);
-            wallet.websocket.onmessage = function (event) {
-                const { wallets, btcusdt } = this.homeContext.state;
-                if (btcusdt === null) return;
-                const { p: currentValue } = JSON.parse(event.data);
-                //copy object
-                const walletsCopy = [...wallets];
-                //we can use 'i' because it's declare as 'let'
-                walletsCopy[i].currentValue = Number((Number(currentValue) * btcusdt).toFixed(2));
-                this.homeContext.setState({ wallets: walletsCopy });
-            }
-        }, 2000)
+        wallet.websocket = new WebSocket(`wss://stream.binance.com:9443/ws/${wallet.currency.toLowerCase()}btc@aggTrade`)
+        wallet.websocket.homeContext = this;
+        wallet.websocket.onopen = (e) => console.log(`Connexion à la paire BTC/${wallet.currency} reussi`);
+        wallet.websocket.onerror = (e) => console.error(`Impossible de trouver la paire à la paire BTC/${wallet.currency}`);
+        wallet.websocket.onmessage = function (event) {
+            const { wallets, btcusdt } = this.homeContext.state;
+            if (btcusdt === null) return;
+            const { p: currentValue } = JSON.parse(event.data);
+            //copy object
+            const walletsCopy = [...wallets];
+            //we can use 'i' because it's declare as 'let'
+            walletsCopy[i].currentValue = Number((Number(currentValue) * btcusdt).toFixed(2));
+            this.homeContext.setState({ wallets: walletsCopy });
+        }
     }
     closeSocket = (wallet) => {
         if (wallet.websocket) {

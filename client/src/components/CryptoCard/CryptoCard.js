@@ -52,20 +52,20 @@ export default class CryptoCard extends Component {
                 {
                     isEditing ?
                         <h1 className={exchangeHeadStyle}>
-                            <IconButton onClick={() => this.saveCrypto()} className={exchangeHeadStyle} aria-label="Save">
+                            <IconButton onClick={this.saveCrypto} className={exchangeHeadStyle} aria-label="Save">
                                 <SaveIcon />
                             </IconButton>
                             <input type="text" defaultValue={currency}
                                 ref={(currencyInput) => { this.currencyInput = currencyInput; }}
                                 className={`${exchangeGeneralStyle} newInput toUpperCase`}
                                 maxLength="5" />
-                            <IconButton onClick={() => deleteCrypto(index)} className={exchangeHeadStyle} aria-label="Delete">
+                            <IconButton onClick={deleteCrypto.bind(null, index)} className={exchangeHeadStyle} aria-label="Delete">
                                 <DeleteIcon />
                             </IconButton>
                         </h1>
                         :
                         <h1 className={exchangeHeadStyle}>
-                            <IconButton onClick={() => this.modifCrypto()} className={exchangeHeadStyle} aria-label="Change">
+                            <IconButton onClick={this.modifCrypto} className={exchangeHeadStyle} aria-label="Change">
                                 <EditIcon />
                             </IconButton>
                             {currency}
