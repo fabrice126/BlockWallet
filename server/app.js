@@ -22,9 +22,9 @@ import UserModel from './models/User.model';
 import api from './routes/api/api';
 import login from './routes/login';
 console.log("Cron is active")
-var j = schedule.scheduleJob('*/10 * * * * *', function () {
-  console.log('The answer to life, the universe, and everything!');
-});
+// var j = schedule.scheduleJob('*/10 * * * * *', function () {
+//   console.log('The answer to life, the universe, and everything!');
+// });
 
 const dbMongoose = mongoose.connect(config.database.mongodb_connect, {
   useMongoClient: true
@@ -62,7 +62,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(jwtExpress({ secret: privateConf.jwt_private_key }).unless({ path: ['/login', '/login/signup'] }));
+app.use(jwtExpress({ secret: privateConf.jwt_private_key }).unless({ path: ['/','/login', '/login/signup'] }));
+app.get('/', function (req, res, next) {
+  return res.json("ok");
+});
 app.use('/login', login);
 app.use('/api', api);
 app.get('/protected', function (req, res, next) {
