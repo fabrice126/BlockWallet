@@ -4,18 +4,18 @@ import { Link } from 'react-router-dom';
 import './MenuConnect.css';
 
 export default class MenuConnect extends Component {
-    render() {
-        var { isVisible, closeMenuConnect } = this.props;
-        return (
-            <div id="MenuConnect" hidden={!isVisible}>
-                <ul>
-                    <li onClick={closeMenuConnect}>
-                        <Link className="navLink" to='/advert'>Advert</Link>
-                    </li>
-                </ul>
-            </div>
-        )
-    }
+	render() {
+		const { isVisible, closeMenuConnect } = this.props;
+		return (
+			<div id="MenuConnect" hidden={!isVisible}>
+				<ul>
+					<li onClick={closeMenuConnect}>
+						<Link className="navLink" to="/advert">Advert</Link>
+					</li>
+				</ul>
+			</div>
+		);
+	}
 }
 
 // <List>

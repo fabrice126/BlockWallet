@@ -9,16 +9,19 @@
   position: absolute;
   right: 7px;
   top: 74px;
-  z-index: 5; }
+  z-index: 5;
+}
 
 #MenuConnect ul {
   padding: 0px 16px 0 16px;
-  list-style: none; }
+  list-style: none;
+}
 
 #MenuConnect li {
   border-bottom: 1px solid #F2F2F2;
   position: relative;
-  padding: 22px 0px 22px 0px; }
+  padding: 22px 0px 22px 0px;
+}
 
 #MenuConnect .navLink {
   top: 0px;
@@ -30,8 +33,10 @@
   width: 100%;
   justify-content: center;
   flex-direction: column;
-  display: flex; }
+  display: flex;
+}
 
 #MenuConnect li:hover {
   cursor: pointer;
-  border-bottom: 1px solid #767676; }
+  border-bottom: 1px solid #767676;
+}
