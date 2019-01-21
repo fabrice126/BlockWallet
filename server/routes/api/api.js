@@ -2,8 +2,12 @@ const express = require('express');
 const router = express.Router();
 const request = require('request');
 import mongoose from 'mongoose';
+import MyCoinsWallet from './MyCoins.wallet.json';
 
 
+router.get('/wallet', function (req, res, next) {
+  return res.json(MyCoinsWallet);
+});
 
 router.get('/exchange/btc', function (req, res, next) {
   let start = Date.now();

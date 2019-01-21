@@ -62,10 +62,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(jwtExpress({ secret: privateConf.jwt_private_key }).unless({ path: ['/','/login', '/login/signup'] }));
-app.get('/', function (req, res, next) {
+// app.use(jwtExpress({ secret: privateConf.jwt_private_key }).unless({ path: ['/', '/login', '/login/signup'] }));
+
+app.get('/', (req, res, next) => {
+  setTimeout(() => console.log("-----Timeout-----"), 0);
+  setImmediate(() => console.log("-----Immediate-----"));
+  process.nextTick(() => console.log('-----Next Tick-----'));
   return res.json("ok");
 });
+
 app.use('/login', login);
 app.use('/api', api);
 app.get('/protected', function (req, res, next) {
