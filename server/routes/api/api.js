@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
-import mongoose from 'mongoose';
 import MyCoinsWallet from './MyCoins.wallet.json';
 
 

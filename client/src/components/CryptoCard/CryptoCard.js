@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // Local
 import './CryptoCard.css';
-import IconButton from 'material-ui/IconButton';
-import DeleteIcon from 'material-ui-icons/Delete';
-import SaveIcon from 'material-ui-icons/Save';
-import EditIcon from 'material-ui-icons/Edit';
+
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
+import EditIcon from '@material-ui/icons/Edit';
 
 // import { CSSTransition, TransitionGroup } from 'react-transition-group'
 // Components

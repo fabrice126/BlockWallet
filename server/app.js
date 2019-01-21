@@ -65,9 +65,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(jwtExpress({ secret: privateConf.jwt_private_key }).unless({ path: ['/', '/login', '/login/signup'] }));
 
 app.get('/', (req, res, next) => {
-  setTimeout(() => console.log("-----Timeout-----"), 0);
-  setImmediate(() => console.log("-----Immediate-----"));
-  process.nextTick(() => console.log('-----Next Tick-----'));
   return res.json("ok");
 });
 

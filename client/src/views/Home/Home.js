@@ -52,14 +52,18 @@ class Home extends React.Component {
 	    this.mod_btcusdt++;
 	  };
 	  if (!this.state.wallets) {
-	    const res = await Home.requestInitialData();
-	    const wallets = res.data;
-	    this.setState({ wallets }, () => {
-	      for (let i = 0; i < wallets.length; i++) {
-	        if (this.state.currencyExclude.includes(wallets[i].currency)) continue;
-	        this.createNewSocket(wallets[i], i);
-	      }
-	    });
+			try {
+				const res = await Home.requestInitialData();
+				const wallets = res.data;
+				this.setState({ wallets }, () => {
+					for (let i = 0; i < wallets.length; i++) {
+						if (this.state.currencyExclude.includes(wallets[i].currency)) continue;
+						this.createNewSocket(wallets[i], i);
+					}
+				});
+			} catch (error) {
+				console.error('Home.requestInitialData', error);
+			}
 	  }
 	}
 

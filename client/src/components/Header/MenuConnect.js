@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import List, { ListItem, ListItemText } from 'material-ui/List';
 import './MenuConnect.css';
 
 export default class MenuConnect extends Component {

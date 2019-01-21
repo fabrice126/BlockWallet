@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import IconButton from 'material-ui/IconButton';
-import SearchIcon from 'material-ui-icons/Search';
-import Avatar from 'material-ui/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Avatar from '@material-ui/core/Avatar';
+import SearchIcon from '@material-ui/icons/Search';
 import { Link } from 'react-router-dom';
-import MenuConnect from './MenuConnect.js';
+import MenuConnect from './MenuConnect';
 
 import './Header.css';
 
@@ -15,29 +15,6 @@ export default class Header extends Component {
 		};
 	}
 
-	render() {
-		return (
-			<header id="Header">
-				<Link className="navLink" to="/">
-					<div className="div_logo">
-						<span>B</span>
-						<span>W</span>
-					</div>
-				</Link>
-				<div id="div_search">
-					<div className="search_icon_wrapper">
-						<SearchIcon className="search_icon" />
-					</div>
-					<input type="search" placeholder="XBT/ETH" />
-				</div>
-				<IconButton className="avatar_icon">
-					<Avatar onClick={this.onToggleMenuConnect} alt="Adelle Charles" src="/uploads/profile-img.jpg" />
-				</IconButton>
-				<MenuConnect isVisible={this.state.menuConnectVisible} closeMenuConnect={this.closeMenuConnect} />
-			</header>
-		);
-	}
-
     onToggleMenuConnect = () => {
     	this.setState({ menuConnectVisible: !this.state.menuConnectVisible });
     }
@@ -45,6 +22,29 @@ export default class Header extends Component {
     closeMenuConnect = () => {
     	console.log('closeMenuConnect');
     	this.setState({ menuConnectVisible: false });
+    }
+
+    render() {
+    	return (
+    		<header id="Header">
+    			<Link className="navLink" to="/">
+    				<div className="div_logo">
+    					<span>B</span>
+    					<span>W</span>
+    				</div>
+    			</Link>
+    			<div id="div_search">
+    				<div className="search_icon_wrapper">
+    					<SearchIcon className="search_icon" />
+    				</div>
+    				<input type="search" placeholder="XBT/ETH" />
+    			</div>
+    			<IconButton className="avatar_icon">
+    				<Avatar onClick={this.onToggleMenuConnect} alt="Adelle Charles" src="/uploads/profile-img.jpg" />
+    			</IconButton>
+    			<MenuConnect isVisible={this.state.menuConnectVisible} closeMenuConnect={this.closeMenuConnect} />
+    		</header>
+    	);
     }
 }
 
