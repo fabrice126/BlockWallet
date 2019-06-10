@@ -33,10 +33,10 @@ class CryptoCardHeader extends React.PureComponent {
 								aria-label="currencyNameLabel"
 								required
 							/>
+							<IconButton onClick={onDelete} className={exchangeHeadStyle} aria-label="Delete">
+								<DeleteIcon />
+							</IconButton>
 						</form>
-						<IconButton onClick={onDelete} className={exchangeHeadStyle} aria-label="Delete">
-							<DeleteIcon />
-						</IconButton>
 					</React.Fragment>
 				) : (
 					<React.Fragment>
@@ -52,13 +52,13 @@ class CryptoCardHeader extends React.PureComponent {
 	}
 }
 CryptoCardHeader.propTypes = {
-	onSave     			: PropTypes.func.isRequired,
-	onEdit     			: PropTypes.func.isRequired,
-	onDelete   			: PropTypes.func.isRequired,
-	onInputChange	: PropTypes.func.isRequired,
-	isEditing  			: PropTypes.bool.isRequired,
-	exchange   			: PropTypes.string.isRequired,
-	currency    		: PropTypes.string.isRequired,
-	img         		: PropTypes.string.isRequired,
+	onSave        : PropTypes.func.isRequired,
+	onEdit        : PropTypes.func.isRequired,
+	onDelete      : PropTypes.func.isRequired,
+	onInputChange : PropTypes.func.isRequired,
+	isEditing     : PropTypes.bool.isRequired,
+	exchange      : PropTypes.string.isRequired,
+	currency      : PropTypes.string.isRequired,
+	img           : PropTypes.string.isRequired,
 };
 export default CryptoCardHeader;

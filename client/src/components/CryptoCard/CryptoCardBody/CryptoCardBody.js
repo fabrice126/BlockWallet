@@ -25,7 +25,7 @@ function CryptoCardBody(props) {
 								defaultValue={buyValue}
 								name="buyValueInput"
 								onChange={onInputChange}
-								className={`${exchangeGeneralStyle} newInput`}
+								className={`${exchangeGeneralStyle} newInputNumber`}
 								aria-label="buyValueLabel"
 							/>
 						</span>
@@ -40,7 +40,7 @@ function CryptoCardBody(props) {
 								defaultValue={quantity}
 								name="quantityInput"
 								onChange={onInputChange}
-								className={`${exchangeGeneralStyle} newInput`}
+								className={`${exchangeGeneralStyle} newInputNumber`}
 								aria-label="quantityInputLabel"
 							/>
 						</span>
