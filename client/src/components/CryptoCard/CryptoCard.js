@@ -2,172 +2,155 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // Local
 import './CryptoCard.css';
-
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
-import EditIcon from '@material-ui/icons/Edit';
-
-// import { CSSTransition, TransitionGroup } from 'react-transition-group'
-// Components
-
+import { connect } from 'react-redux';
+import CryptoCardHeader from './CryptoCardHeader/CryptoCardHeader';
+import CryptoCardBody from './CryptoCardBody/CryptoCardBody';
+import { deleteWallet, saveWallet, setWalletFieldState } from '../../store/actions/walletActions';
 
 class CryptoCard extends React.Component {
 	constructor(props) {
 		super(props);
-		this.oldExchange = null;
-		this.oldCurrencyValue = null;
-		this.oldQuantity = null;
-		this.oldCurrency = null;
+		const { wallet } = props;
 		this.state = {
-			isEditing : this.props.wallet.isEditing || false,
+			currencyInput : wallet.currency || '',
+			quantityInput : wallet.quantity || 0,
+			buyValueInput : wallet.buyValue || 0,
+			isEditing     : wallet.isEditing || false,
 		};
 	}
 
-    shouldComponentUpdate = (nextProps, nextState) => {
-    	const {
-    		currentValue, quantity, currency, exchange,
-    	} = nextProps.wallet;
-    	const { isEditing } = this.state;
-    	if (this.oldCurrencyValue === currentValue
-            && this.oldQuantity === quantity
-            && this.oldCurrency === currency
-            && this.oldExchange === exchange
-            && isEditing === nextState.isEditing) return false;
+	componentDidMount() {
+		const { wallet, currencyExclude } = this.props;
+		// If excluded crypto are in this wallet
+		if (!currencyExclude.includes(wallet.currency)) {
+			this.createNewSocket(wallet);
+		}
+	}
 
-    	this.oldExchange = exchange;
-    	this.oldCurrencyValue = currentValue;
-    	this.oldQuantity = quantity;
-    	this.oldCurrency = currency;
-    	return true;
-    }
+  shouldComponentUpdate = (nextProps, nextState) => {
+  	const { isEditing } = this.state;
+  	const { wallet } = this.props;
+  	if (
+  		wallet.currentValue === nextProps.wallet.currentValue
+      && wallet.quantity === nextProps.wallet.quantity
+      && wallet.currency === nextProps.wallet.currency
+      && wallet.exchange === nextProps.wallet.exchange
+      && isEditing === nextState.isEditing
+  	) {
+  		return false;
+  	}
+  	// console.log('----UPDATE =>', wallet.currency);
+  	return true;
+  };
 
-    saveCrypto = () => {
-    	const { save, index } = this.props;
-    	const wallet = { ...this.props.wallet };
-    	let { isEditing } = this.state;
-    	isEditing = false;
-    	wallet.currency = this.currencyInput.value;
-    	wallet.buyValue = Number(this.buyValueInput.value);
-    	wallet.quantity = Number(this.quantityInput.value);
-    	this.setState({ isEditing }, () => save(index, wallet));
-    }
+  onSave = (e) => {
+  	e.preventDefault();
+  	const { index, wallet } = this.props;
+  	const {
+  		currencyInput, quantityInput, buyValueInput, isEditing,
+  	} = this.state;
+  	if (!currencyInput || Number(buyValueInput) < 0 || Number(quantityInput) < 0) return;
+  	const newWallet = {
+  		...wallet,
+  		currency : currencyInput,
+  		buyValue : Number(buyValueInput),
+  		quantity : Number(quantityInput),
+  	};
+  	// Si la currency change alors on supprime le socket vers l'ancienne monnaie pour le recréer vers la nouvelle monnaie
+  	if (wallet.currency !== newWallet.currency) {
+  		// Si l'ancien wallet n'a pas de currency (nouveau wallet)
+  		if (wallet.websocket) {
+  			this.closeSocket(wallet);
+  		}
+  		this.createNewSocket(newWallet);
+  	}
+  	this.props.saveWallet(newWallet, index);
+  	this.setState({ isEditing: !isEditing }, () => {});
+  };
 
-    modifCrypto = () => {
-    	let { isEditing } = this.state;
-    	isEditing = true;
-    	this.setState({ isEditing });
-    }
+  onDelete = () => {
+  	const { wallet, index } = this.props;
+  	if (wallet.websocket) {
+  		this.closeSocket(wallet);
+  	}
+  	this.props.deleteWallet(index);
+  };
 
-    render() {
-    	const {
-    		currency, buyValue, currentValue, quantity, exchange, img,
-    	} = this.props.wallet;
-    	const { changeSelectExchange, deleteCrypto, index } = this.props;
-    	if (index > 9) {
-    		console.log('index:', index, currency, buyValue, currentValue, quantity, exchange, img);
-    	}
-    	const { isEditing } = this.state;
-    	const totalBuyValue = (buyValue * quantity).toFixed(2);
-    	const totalCurrentValue = (currentValue * quantity).toFixed(2);
-    	const gain = (totalCurrentValue - totalBuyValue).toFixed(2);
-    	const ratio = (totalCurrentValue / totalBuyValue).toFixed(2);
-    	const exchangeHeadStyle = `${exchange}HeadStyle`;
-    	const exchangeGeneralStyle = `${exchange}GeneralStyle`;
-    	return (
+  createNewSocket = (wallet) => {
+  	const { index } = this.props;
+  	if (!wallet.currency) return;
+  	wallet.websocket = new WebSocket(`wss://stream.binance.com:9443/ws/${wallet.currency.toLowerCase()}btc@aggTrade`);
+  	wallet.websocket.onopen = () => console.log(`Connexion à la paire BTC/${wallet.currency} reussi`);
+  	wallet.websocket.onerror = () => console.error(`Impossible de trouver la paire à la paire BTC/${wallet.currency}`);
+  	wallet.websocket.onmessage = (event) => {
+  		// Nous devons recupérer l'objet wallet des props afin qu'il soit a jour
+  		const { btcusdt, wallet: propsWallet } = this.props;
+  		if (btcusdt === null) return;
+  		const { p: currentValue } = JSON.parse(event.data);
+  		const newCurrentValue = Number((Number(currentValue) * btcusdt).toFixed(2));
+  		// Si la valeur est la même on ne fait rien
+  		if (propsWallet.currentValue === newCurrentValue) return;
+  		const newWallet = { ...propsWallet, currentValue: newCurrentValue };
+  		this.props.saveWallet(newWallet, index);
+  	};
+  };
 
-    		<div className={`CryptoCard ${exchangeGeneralStyle}`}>
-    			{
-    				isEditing
-    					? (
-    						<h1 className={exchangeHeadStyle}>
-    							<IconButton onClick={this.saveCrypto} className={exchangeHeadStyle} aria-label="Save">
-    								<SaveIcon />
-    							</IconButton>
-    							<input
-    								type="text"
-    								defaultValue={currency}
-    								ref={(currencyInput) => { this.currencyInput = currencyInput; }}
-    								className={`${exchangeGeneralStyle} newInput toUpperCase`}
-    								maxLength="5"
-    							/>
-    							<IconButton onClick={deleteCrypto.bind(null, index)} className={exchangeHeadStyle} aria-label="Delete">
-    								<DeleteIcon />
-    							</IconButton>
-    						</h1>
-    					)
-    					: (
-    						<h1 className={exchangeHeadStyle}>
-    							<IconButton onClick={this.modifCrypto} className={exchangeHeadStyle} aria-label="Change">
-    								<EditIcon />
-    							</IconButton>
-    							{currency}
-    							<img src={img} alt="Crypto" />
-    						</h1>
-    					)
-    			}
-    			{
-    				isEditing
-    					? (
-    						<span>
-    							<div>
-    								<span>Prix Achat:</span>
-    								<span> <input type="number" min="0" defaultValue={buyValue} ref={(buyValueInput) => { this.buyValueInput = buyValueInput; }} className={`${exchangeGeneralStyle} newInput`} /></span>
-    							</div>
-    							<div>
-    								<span>Quantité:</span>
-    								<span> <input type="number" min="0" defaultValue={quantity} ref={(quantityInput) => { this.quantityInput = quantityInput; }} className={`${exchangeGeneralStyle} newInput`} /></span>
-    							</div>
-    							<div>
-    								<span>Exchange:</span>
-    								<select defaultValue={exchange} className={`${exchangeGeneralStyle} newInput`} onChange={e => changeSelectExchange(e, index)}>
-    									<option value="binance">Binance</option>
-    									<option value="bittrex">Bittrex</option>
-    									<option value="kucoin">Kucoin</option>
-    								</select>
-    							</div>
-    						</span>
-    					)
-    					: (
-    						<span>
-    							<div>
-    								<span>Prix Achat:</span>
-    								<span> ${buyValue}</span>
-    							</div>
-    							<div>
-    								<span>Prix Courant:</span>
-    								<span>${currentValue}</span>
-    							</div>
-    							<div>
-    								<span>Total Achat:</span>
-    								<span>${totalBuyValue}</span>
-    							</div>
-    							<div>
-    								<span>Total Courant:</span>
-    								<span>${totalCurrentValue}</span>
-    							</div>
-    							<div>
-    								<span>Quantité:</span>
-    								<span>{quantity}</span>
-    							</div>
-    							<div>
-    								<span>Ratio:</span>
-    								<span>{ratio}</span>
-    							</div>
-    							<div>
-    								<span>Gain:</span>
-    								<span>${currentValue ? gain : 0}</span>
-    							</div>
-    							<div>
-    								<span>Exchange:</span>
-    								<span> {exchange}</span>
-    							</div>
-    						</span>
-    					)
-    			}
-    		</div>
-    	);
-    }
+  closeSocket = (wallet) => {
+  	if (wallet && wallet.websocket) {
+  		wallet.websocket.close();
+  		console.log(`Socket closed: ${wallet.currency}`);
+  	} else {
+  		console.error('No socket for this currency');
+  	}
+  };
+
+  onChangeSelectExchange = (e) => {
+  	const { wallet, index } = this.props;
+  	const newWallet = {
+  		...wallet,
+  		exchange : e.target.value,
+  	};
+  	this.props.saveWallet(newWallet, index);
+  };
+
+  onInputChange = (e) => {
+  	const value = Number.isNaN(e.target.valueAsNumber) ? e.target.value : e.target.valueAsNumber;
+  	this.setState({ [e.target.name]: value });
+  };
+
+  onEdit = () => {
+  	const { isEditing } = this.state;
+  	this.setState({ isEditing: !isEditing });
+  };
+
+  componentWillUnmount = () => {
+  	const { wallet } = this.props;
+  	if (!wallet.websocket) return;
+  	wallet.websocket.close();
+  	console.log('Sockets closed');
+  };
+
+  render() {
+  	const { isEditing } = this.state;
+  	const { wallet } = this.props;
+  	const { currency, exchange, img } = wallet;
+  	const exchangeGeneralStyle = `${exchange}GeneralStyle`;
+  	return (
+  		<div className={`CryptoCard ${exchangeGeneralStyle}`}>
+  			<CryptoCardHeader
+  				onSave={this.onSave}
+  				onEdit={this.onEdit}
+  				onDelete={this.onDelete}
+  				onInputChange={this.onInputChange}
+  				currency={currency}
+  				exchange={exchange}
+  				isEditing={isEditing}
+  				img={img}
+  			/>
+  			<CryptoCardBody onInputChange={this.onInputChange} onChangeSelectExchange={this.onChangeSelectExchange} wallet={wallet} isEditing={isEditing} />
+  		</div>
+  	);
+  }
 }
 
 CryptoCard.propTypes = {
@@ -180,11 +163,11 @@ CryptoCard.propTypes = {
 		currency     : PropTypes.string,
 		img          : PropTypes.string,
 	}),
-	save                 : PropTypes.func.isRequired,
-	changeSelectExchange : PropTypes.func.isRequired,
-	deleteCrypto         : PropTypes.func.isRequired,
-	index                : PropTypes.number.isRequired,
-
+	index           : PropTypes.number.isRequired,
+	saveWallet      : PropTypes.func.isRequired,
+	deleteWallet    : PropTypes.func.isRequired,
+	currencyExclude : PropTypes.arrayOf(PropTypes.string),
+	btcusdt         : PropTypes.number,
 };
 
 CryptoCard.defaultProps = {
@@ -197,5 +180,17 @@ CryptoCard.defaultProps = {
 		currency     : '',
 		img          : '',
 	},
+	currencyExclude : [],
+	btcusdt         : 0,
 };
-export default CryptoCard;
+const mapStateToProps = state => ({ btcusdt: state.walletReducer.btcusdt });
+
+const mapDispatchToProps = dispatch => ({
+	setWalletFieldState : wallets => dispatch(setWalletFieldState(wallets)),
+	deleteWallet        : wallet => dispatch(deleteWallet(wallet)),
+	saveWallet          : (wallet, index) => dispatch(saveWallet(wallet, index)),
+});
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps,
+)(CryptoCard);

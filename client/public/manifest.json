@@ -1,13 +1,16 @@
 {
-  "short_name": "GG",
-  "name": "BlockWallet",
-  "icons": [{
-    "src": "favicon.ico",
-    "sizes": "192x192",
-    "type": "image/png"
-  }],
-  "start_url": "./index.html",
+  "name": "Block Wallet",
+  "short_name": "Block Wallet",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
   "display": "standalone",
   "background_color": "#2196F3",
+  "orientation": "portrait-primary",
   "theme_color": "#2196F3"
 }

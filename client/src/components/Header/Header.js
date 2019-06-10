@@ -16,11 +16,11 @@ export default class Header extends Component {
 	}
 
     onToggleMenuConnect = () => {
-    	this.setState({ menuConnectVisible: !this.state.menuConnectVisible });
+    	const { menuConnectVisible } = this.state;
+    	this.setState({ menuConnectVisible: !menuConnectVisible });
     }
 
     closeMenuConnect = () => {
-    	console.log('closeMenuConnect');
     	this.setState({ menuConnectVisible: false });
     }
 
@@ -37,10 +37,10 @@ export default class Header extends Component {
     				<div className="search_icon_wrapper">
     					<SearchIcon className="search_icon" />
     				</div>
-    				<input type="search" placeholder="XBT/ETH" />
+    				<input type="search" placeholder="XBT/ETH" aria-label="searchLabel" />
     			</div>
-    			<IconButton className="avatar_icon">
-    				<Avatar onClick={this.onToggleMenuConnect} alt="Adelle Charles" src="/uploads/profile-img.jpg" />
+    			<IconButton className="avatar_icon" onClick={this.onToggleMenuConnect}>
+    				<Avatar alt="Adelle Charles" src="/uploads/profile-img.jpg" />
     			</IconButton>
     			<MenuConnect isVisible={this.state.menuConnectVisible} closeMenuConnect={this.closeMenuConnect} />
     		</header>

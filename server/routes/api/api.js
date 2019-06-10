@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
-import MyCoinsWallet from './MyCoins.wallet.json';
+import MyCoinsWallet from '../../data/MyCoins.wallet';
 
 
 router.get('/wallet', function (req, res, next) {

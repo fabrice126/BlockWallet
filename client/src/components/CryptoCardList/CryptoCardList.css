@@ -1,0 +1,43 @@
+.CryptoCardList .transitionGroup {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  flex-flow: wrap;
+}
+
+.CryptoCardList .fade-enter.fade-enter-active {
+  animation: add-item-animation 600ms ease-out forwards;
+  transform-origin: 50% 50%;
+}
+
+.CryptoCardList .fade-leave.fade-leave-active {
+  animation: remove-item-animation 600ms ease-out forwards;
+  transform-origin: 50% 50%;
+}
+
+@keyframes add-item-animation {
+  0% {
+    opacity: 1;
+    transform: scale(4);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes remove-item-animation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(4);
+  }
+}

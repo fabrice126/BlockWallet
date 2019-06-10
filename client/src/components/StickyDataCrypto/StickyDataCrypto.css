@@ -1,0 +1,11 @@
+.StickyDataCrypto {
+  display: flex;
+  background: white;
+  width: 100%;
+  justify-content: space-around;
+  position: fixed;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14);
+  align-items: center;
+  height: 30px;
+  z-index: 1;
+}

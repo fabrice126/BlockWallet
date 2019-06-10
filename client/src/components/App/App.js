@@ -1,20 +1,24 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Header from '../Header/Header';
 import './App.css';
 import routes from '../../routes';
 
-export default class App extends React.Component {
-	render() {
-		return (
+function App() {
+	return (
+		<BrowserRouter>
 			<div>
 				<Header />
 				<main>
 					<Switch>
-						{routes.map((route, i) => <Route key={i} {...route} />)}
+						{routes.map(route => (
+							<Route {...route} />
+						))}
 					</Switch>
 				</main>
 			</div>
-		);
-	}
+		</BrowserRouter>
+	);
 }
+
+export default App;
