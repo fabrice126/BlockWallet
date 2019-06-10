@@ -1,5 +1,5 @@
 // const staticCacheName = 'site-static-3';
-const dynamicCache = 'site-dynamic-v1';
+const dynamicCache = 'site-dynamic-v2';
 
 // Install service worker
 self.addEventListener('install', (e) => {
