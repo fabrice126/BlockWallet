@@ -1,8 +1,11 @@
+// Node_modules
 import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
-import Header from '../Header/Header';
-import './App.css';
+// Locals
 import routes from '../../routes';
+import './App.css';
+// Components
+import Header from '../Header/Header';
 
 function App() {
 	return (
@@ -12,7 +15,7 @@ function App() {
 				<main>
 					<Switch>
 						{routes.map(route => (
-							<Route {...route} />
+							<Route {...route} key={route.key} />
 						))}
 					</Switch>
 				</main>

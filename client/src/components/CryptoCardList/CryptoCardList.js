@@ -1,15 +1,18 @@
+// Node_modules
 import React from 'react';
 import ReactTransitionGroup from 'react-addons-css-transition-group';
 import PropTypes from 'prop-types';
-import CryptoCard from '../CryptoCard/CryptoCard';
+// Locals
 import './CryptoCardList.css';
+// Components
+import CryptoCard from '../CryptoCard/CryptoCard';
 
 class CryptoCardList extends React.PureComponent {
 	render() {
 		const { wallets, currencyExclude } = this.props;
 		return (
 			<div className="CryptoCardList">
-				<ReactTransitionGroup className="transitionGroup" transitionName="fade" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
+				<ReactTransitionGroup className="CryptoCardList__transitionGroup" transitionName="fade" transitionEnterTimeout={600} transitionLeaveTimeout={600}>
 					{
 						wallets && wallets.map((wallet, index) => {
 							if (!wallet) return false;

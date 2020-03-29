@@ -31,8 +31,12 @@ const walletReducer = (state = initState, action) => {
 	case 'CREATE_WALLET_WEBSOCKET': {
 		return { ...state };
 	}
-	case 'INIT_WALLET': {
+	case 'INIT_WALLETS': {
 		return { ...state, wallets: action.wallets };
+	}
+	case 'INIT_WALLETS_ERROR': {
+		console.error('INIT_WALLETS_ERROR', action.error);
+		return state;
 	}
 	case 'SET_WALLET_FIELD_STATE': {
 		return { ...state, ...action.payload };

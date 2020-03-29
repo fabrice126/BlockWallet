@@ -1,3 +1,4 @@
+// Node_modules
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,13 +11,13 @@ class CryptoCardHeader extends React.PureComponent {
 		const {
 			onSave, onEdit, onDelete, onInputChange, isEditing, exchange, currency, img,
 		} = this.props;
-		const exchangeHeadStyle = `${exchange}HeadStyle`;
-		const exchangeGeneralStyle = `${exchange}GeneralStyle`;
+		const exchangeHeadStyle = `CryptoCardHeader__${exchange}-head-style`;
+		const exchangeGeneralStyle = `CryptoCardHeader__${exchange}-general-style`;
 		return (
 			<h1 className={`CryptoCardHeader ${exchangeHeadStyle}`}>
 				{isEditing ? (
 					<React.Fragment>
-						<form onSubmit={onSave}>
+						<form className="CryptoCardHeader__form" onSubmit={onSave}>
 							<IconButton type="submit" className={exchangeHeadStyle} aria-label="Save">
 								<SaveIcon />
 							</IconButton>
@@ -26,11 +27,12 @@ class CryptoCardHeader extends React.PureComponent {
 								defaultValue={currency}
 								onChange={onInputChange}
 								name="currencyInput"
-								className={`${exchangeGeneralStyle} newInput toUpperCase`}
+								className={`${exchangeGeneralStyle} CryptoCardHeader__new-input CryptoCardHeader--to-upper-case`}
 								minLength="1"
 								maxLength="5"
 								placeholder="ETH"
 								aria-label="currencyNameLabel"
+								autoComplete="off"
 								required
 							/>
 							<IconButton onClick={onDelete} className={exchangeHeadStyle} aria-label="Delete">
@@ -44,7 +46,7 @@ class CryptoCardHeader extends React.PureComponent {
 							<EditIcon />
 						</IconButton>
 						{currency}
-						<img src={img} alt="Crypto" />
+						<img className="CryptoCardHeader__logo-crypto" src={img} alt="Crypto" />
 					</React.Fragment>
 				)}
 			</h1>

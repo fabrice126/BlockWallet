@@ -1,6 +1,7 @@
 {
     "extends": [
-        "airbnb"
+        "airbnb",
+        "plugin:react/recommended"
     ],
     "env": {
         "node": true,
@@ -24,10 +25,16 @@
                 }
             }
         ],
-        "react/jsx-indent": [true, "tab"],
-        "indent": ["error", "tab"],
+        "react/jsx-indent": [
+            true,
+            "tab"
+        ],
+        "indent": [
+            "error",
+            "tab"
+        ],
         "react/destructuring-assignment": "off",
-        "react/jsx-indent-props":"off",
+        "react/jsx-indent-props": "off",
         "react/jsx-one-expression-per-line": "off",
         "react/jsx-filename-extension": "off",
         "jsx-a11y/click-events-have-key-events": "off",
@@ -42,8 +49,8 @@
         "no-underscore-dangle": "off",
         "prefer-destructuring": "off",
         "no-param-reassign": "off",
-        "consistent-return":"off",
-        "no-mixed-spaces-and-tabs":"off"
-
+        "consistent-return": "off",
+        "no-mixed-spaces-and-tabs": "off",
+        "import/prefer-default-export": "off"
     }
 }

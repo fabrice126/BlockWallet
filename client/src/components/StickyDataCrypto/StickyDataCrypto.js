@@ -1,5 +1,7 @@
+// Node_modules
 import React from 'react';
 import PropTypes from 'prop-types';
+// Locals
 import './StickyDataCrypto.css';
 
 class StickyDataCrypto extends React.PureComponent {

@@ -1,13 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request');
-import MyCoinsWallet from '../../data/MyCoins.wallet';
+import coinsWallet from '../../data/coinsWallet';
+import allCoins from '../../data/allCoins';
 
 
 router.get('/wallet', function (req, res, next) {
-  return res.json(MyCoinsWallet);
+  return res.json(coinsWallet);
 });
 
+router.get('/coins', function (req, res, next) {
+  return res.json(allCoins);
+});
+ 
 router.get('/exchange/btc', function (req, res, next) {
   let start = Date.now();
   const { MarketModel } = req.models;
@@ -76,6 +81,6 @@ router.get('/add/coinlist', function (req, res, next) {
     }
   });
 });
-
+// https://s2.coinmarketcap.com/static/img/coins/32x32/1027.png
 
 module.exports = router;

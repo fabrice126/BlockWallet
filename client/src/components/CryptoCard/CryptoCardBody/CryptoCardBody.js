@@ -1,5 +1,7 @@
+// Node_modules
 import React from 'react';
 import PropTypes from 'prop-types';
+
 
 function CryptoCardBody(props) {
 	const {
@@ -10,7 +12,7 @@ function CryptoCardBody(props) {
 	const totalCurrentValue = (currentValue * quantity).toFixed(2);
 	const gain = (totalCurrentValue - totalBuyValue).toFixed(2);
 	const ratio = (totalCurrentValue / totalBuyValue).toFixed(2);
-	const exchangeGeneralStyle = `${exchange}GeneralStyle`;
+	const exchangeGeneralStyle = `CryptoCardBody__${exchange}-general-style`;
 	return (
 		<div className="CryptoCardBody">
 			{isEditing ? (
@@ -25,7 +27,7 @@ function CryptoCardBody(props) {
 								defaultValue={buyValue}
 								name="buyValueInput"
 								onChange={onInputChange}
-								className={`${exchangeGeneralStyle} newInputNumber`}
+								className={`${exchangeGeneralStyle} CryptoCardBody__new-input-number`}
 								aria-label="buyValueLabel"
 							/>
 						</span>
@@ -40,14 +42,14 @@ function CryptoCardBody(props) {
 								defaultValue={quantity}
 								name="quantityInput"
 								onChange={onInputChange}
-								className={`${exchangeGeneralStyle} newInputNumber`}
+								className={`${exchangeGeneralStyle} CryptoCardBody__new-input-number`}
 								aria-label="quantityInputLabel"
 							/>
 						</span>
 					</div>
 					<div>
 						<span>Exchange:</span>
-						<select defaultValue={exchange} className={`${exchangeGeneralStyle} newInput`} onChange={onChangeSelectExchange}>
+						<select defaultValue={exchange} className={`${exchangeGeneralStyle} CryptoCardBody__new-input`} onChange={onChangeSelectExchange}>
 							<option value="binance">Binance</option>
 							<option value="bittrex">Bittrex</option>
 							<option value="kucoin">Kucoin</option>

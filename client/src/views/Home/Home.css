@@ -1,8 +1,8 @@
 #Home {
   width: 100%;
 }
-
-#Home #bt_addProduct {
+/*We use #id for override MUI default css*/
+#Home__add-product {
   transition: box-shadow 0.3s ease-in-out;
   border-radius: 100%;
   position: fixed;
@@ -13,8 +13,9 @@
   right: 2%;
   width: 60px;
   height: 60px;
+  z-index: 5;
 }
 
-#Home #bt_addProduct:hover {
+#Home__add-product:hover {
   box-shadow: -3px 7px 6px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
 }

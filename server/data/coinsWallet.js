@@ -1,6 +1,7 @@
 export default [
   {
     id: "1b3d1d08-8648-11e9-bc42-526af7764f64",
+    idCMC : 1808,
     currency: "OMG",
     buyValue: 15,
     currentValue: 0,
@@ -10,6 +11,7 @@ export default [
   },
   {
     id: "1b3d2258-8648-11e9-bc42-526af7764f64",
+    idCMC : 1376,
     currency: "NEO",
     buyValue: 70,
     currentValue: 0,
@@ -19,6 +21,7 @@ export default [
   },
   {
     id: "1b3d23de-8648-11e9-bc42-526af7764f64",
+    idCMC : 2010,
     currency: "ADA",
     buyValue: 0.4,
     currentValue: 0,
@@ -28,6 +31,7 @@ export default [
   },
   {
     id: "1b3d2514-8648-11e9-bc42-526af7764f64",
+    idCMC : 1321,
     currency: "ETC",
     buyValue: 35,
     currentValue: 0,
@@ -37,6 +41,7 @@ export default [
   },
   {
     id: "1b3d2640-8648-11e9-bc42-526af7764f64",
+    idCMC : 693,
     currency: "XVG",
     buyValue: 0.2,
     currentValue: 0,
@@ -46,6 +51,7 @@ export default [
   },
   {
     id: "613e70ea-8648-11e9-bc42-526af7764f64",
+    idCMC : 2044,
     currency: "ENG",
     buyValue: 6.85,
     currentValue: 0,
@@ -55,15 +61,17 @@ export default [
   },
   {
     id: "613e6fbe-8648-11e9-bc42-526af7764f64",
-    currency: "XRB",
+    idCMC : 1567,
+    currency: "NANO",
     buyValue: 13.15,
     currentValue: 18.2,
     quantity: 5.63,
     exchange: "kucoin",
-    img: "https://www.cryptocompare.com/media/1383674/xrb.png"
+    img: "https://www.cryptocompare.com/media/1383674/nano.png"
   },
   {
     id: "613e6e88-8648-11e9-bc42-526af7764f64",
+    idCMC : 1886,
     currency: "DENT",
     buyValue: 0.035,
     currentValue: 0.042,
@@ -73,6 +81,7 @@ export default [
   },
   {
     id: "613e6d34-8648-11e9-bc42-526af7764f64",
+    idCMC : 1826,
     currency: "PART",
     buyValue: 10.59,
     currentValue: 31,
@@ -82,6 +91,7 @@ export default [
   },
   {
     id: "613e6ac8-8648-11e9-bc42-526af7764f64",
+    idCMC : 2394,
     currency: "TEL",
     buyValue: 0.004,
     currentValue: 0.0044,
