@@ -9,16 +9,15 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import compression from 'compression';
 import cors from 'cors';
-import elasticsearch from 'elasticsearch';
-import mongoose from 'mongoose';
-import schedule from 'node-schedule';
-import jwt from "jsonwebtoken";
-import jwtExpress from 'express-jwt';
+// import mongoose from 'mongoose';
+// import schedule from 'node-schedule';
+// import jwt from "jsonwebtoken";
+// import jwtExpress from 'express-jwt';
 //Local import
 import config from "./config/config";
-import privateConf from './private/jwt_secret_key'
-import MarketModel from './models/Market.model';
-import UserModel from './models/User.model';
+// import privateConf from './private/jwt_secret_key'
+// import MarketModel from './models/Market.model';
+// import UserModel from './models/User.model';
 import api from './routes/api/api';
 import login from './routes/login';
 console.log("Cron is active")
@@ -26,25 +25,25 @@ console.log("Cron is active")
 //   console.log('The answer to life, the universe, and everything!');
 // });
 
-const dbMongoose = mongoose.connect(config.database.mongodb_connect, {
-  useMongoClient: true
-}, (err) => {
-  if (err) console.error(err);
-});
+// const dbMongoose = mongoose.connect(config.database.mongodb_connect, {
+//   useMongoClient: true
+// }, (err) => {
+//   if (err) console.error(err);
+// });
 var app = express();
 app.use(helmet());
 app.use(compression());
 app.use(cors('*'));
 app.use((req, res, next) => {
-  req.dbMongoose = dbMongoose;
+//   req.dbMongoose = dbMongoose;
   req.config = config;
-  req.jwt = jwt;
-  req.jwtExpress = jwtExpress;
-  req.privateConf = privateConf;
-  req.models = {
-    MarketModel,
-    UserModel
-  }
+//   req.jwt = jwt;
+//   req.jwtExpress = jwtExpress;
+//   req.privateConf = privateConf;
+//   req.models = {
+//     MarketModel,
+//     UserModel
+//   }
   next();
 });
 
